@@ -24,11 +24,11 @@ public class VendasModel {
 
     // construtores Getter and Setters
 
-    public VendasModel(Long id, String produto, double valor) {
+  /*  public VendasModel(Long id, String produto, double valor) {
         this.id = id;
         this.produto = produto;
         this.valor = valor;
-    }
+    }*/
 
     public Long getId() {
         return id;

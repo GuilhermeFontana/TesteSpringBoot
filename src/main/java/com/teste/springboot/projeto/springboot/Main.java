@@ -9,8 +9,10 @@ import org.springframework.context.annotation.ComponentScan;
 		"com.teste.springboot.projeto.springboot.Controller",
 		"com.teste.springboot.projeto.springboot.Service",
 		"com.teste.springboot.projeto.springboot.Repository",
-		"com.teste.springboot.projeto.springboot.Model"
+		"com.teste.springboot.projeto.springboot.Model",
+		"com.teste.springboot.projeto.springboot.VendasMapper"
 })
+
 public class Main {
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);

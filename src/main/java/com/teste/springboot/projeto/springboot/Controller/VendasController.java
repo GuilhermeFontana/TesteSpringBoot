@@ -3,6 +3,7 @@ package com.teste.springboot.projeto.springboot.Controller;
 import com.teste.springboot.projeto.springboot.Service.VendasService;
 import com.teste.springboot.projeto.springboot.Model.VendasModel;
 
+import com.teste.springboot.projeto.springboot.VendasDTO.VendasDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,21 +22,20 @@ public class VendasController {
 
     // Criar produto (CREATE)
     @PostMapping("/criar")
-    public VendasModel criar(@RequestBody VendasModel vendasModel){
-        return vendasService.cadastroProdutos(vendasModel);
+    public VendasDTO criar(@RequestBody VendasDTO vendasDTO){
+        return vendasService.cadastroProdutos(vendasDTO);
     }
 
     // Ver produtos (READ)
     @GetMapping("/listar")
-    public List<VendasModel> listar(){
+    public List<VendasDTO> listar(){
         return vendasService.listar();
     }
 
     //Listar por id
     @GetMapping("/listar/{id}")
-    public VendasModel listarPorId(@PathVariable Long id) {
+    public VendasDTO listarPorId(@PathVariable Long id) {
         return vendasService.listarPorId(id);
-
     }
 
     //deletar por id
