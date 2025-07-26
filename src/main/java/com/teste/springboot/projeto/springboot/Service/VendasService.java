@@ -30,14 +30,7 @@ public class VendasService {
     // Cadastro De produtos (CREATE)
     public VendasDTO cadastroProdutos(VendasDTO vendasDTO){
 
-        if (vendasDTO.getProduto() == null || vendasDTO.getProduto().trim().isEmpty()){
-            System.out.println("Produto nao pode ser cadastrado!");
-            return null;
-        }
-        if (vendasDTO.getValor() <= 0){
-            System.out.println("Valor nao pode ser cadastrado!");
-        return null;
-        }
+
 
         VendasModel vendasModel = vendasMapper.map(vendasDTO);
        vendasModel = vendasRepository.save(vendasModel);
@@ -65,7 +58,7 @@ public class VendasService {
 
     // deletar por id
 
-    public void deletarPorId(Long id){
+    public void deletar(Long id){
         vendasRepository.deleteById(id);
     }
 

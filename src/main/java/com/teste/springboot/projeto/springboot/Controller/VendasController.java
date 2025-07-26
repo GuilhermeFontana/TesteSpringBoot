@@ -6,6 +6,8 @@ import com.teste.springboot.projeto.springboot.Model.VendasModel;
 import com.teste.springboot.projeto.springboot.VendasDTO.VendasDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +24,16 @@ public class VendasController {
 
     // Criar produto (CREATE)
     @PostMapping("/criar")
-    public VendasDTO criar(@RequestBody VendasDTO vendasDTO){
-        return vendasService.cadastroProdutos(vendasDTO);
+    public ResponseEntity<String> criar(@RequestBody VendasDTO vendasDTO){
+
+        if (vendasDTO.getProduto() == null || vendasDTO.getProduto().trim().isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não possui um NOME!");
+        }
+        if (vendasDTO.getValor() <= 0){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não possui um VALOR!");
+        }
+        vendasService.cadastroProdutos(vendasDTO);
+        return ResponseEntity.ok("Produto cadastrado com sucesso!");
     }
 
     // Ver produtos (READ)
@@ -32,16 +42,35 @@ public class VendasController {
         return vendasService.listar();
     }
 
+
+
+
+
+
+
     //Listar por id
     @GetMapping("/listar/{id}")
-    public VendasDTO listarPorId(@PathVariable Long id) {
-        return vendasService.listarPorId(id);
+    public ResponseEntity<?> listarPorId(@PathVariable Long id) {
+        VendasDTO vendasDTO = vendasService.listarPorId(id);
+
+        if (vendasService.listarPorId(id) != null){
+       return ResponseEntity.ok(vendasDTO);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não possuimos o id desejado em nosso sistema!");
     }
 
     //deletar por id
     @DeleteMapping("/deletar/{id}")
-    public void deletarPorID(@PathVariable Long id){
-        vendasService.deletarPorId(id);
+    public ResponseEntity<String> deletarProduto (@PathVariable Long id) {
+
+        if (vendasService.listarPorId(id) != null) {
+            vendasService.deletar(id);
+            return ResponseEntity.ok("Produto do ID: " + id + ". Deletado com sucesso!");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Produto não encontrado!");
+
+        }
     }
 
 }
